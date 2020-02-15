@@ -1,17 +1,14 @@
-use crate::services::ExternalWebApiCredential;
+use crate::services::{ExternalWebApi, ExternalWebApiCredential};
 
 #[derive(Debug, Default)]
-pub struct TransportApiCredential {
-    api_key: String,
-    app_id: String,
+pub struct TransportApi {
+    credentials: ExternalWebApiCredential,
 }
 
-impl ExternalWebApiCredential for TransportApiCredential {
-    fn get_api_key(&self) -> &String {
-        &self.api_key
-    }
-
-    fn get_app_id(&self) -> &String {
-        &self.app_id
+impl TransportApi {
+    pub fn new(credentials: ExternalWebApiCredential) -> TransportApi {
+        TransportApi { credentials }
     }
 }
+
+impl ExternalWebApi for TransportApi {}
