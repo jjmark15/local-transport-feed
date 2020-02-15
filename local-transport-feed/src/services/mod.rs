@@ -1,3 +1,6 @@
+use hyper::client::HttpConnector;
+use hyper::Client;
+
 pub mod web;
 
 #[derive(Debug, Default)]
@@ -7,13 +10,17 @@ pub struct ExternalWebApiCredential {
 }
 
 impl ExternalWebApiCredential {
-    fn get_api_key(&self) -> &String {
+    pub fn get_api_key(&self) -> &String {
         &self.api_key
     }
 
-    fn get_app_id(&self) -> &String {
+    pub fn get_app_id(&self) -> &String {
         &self.app_id
     }
 }
 
-pub trait ExternalWebApi {}
+pub trait ExternalWebApi {
+    fn get_api_base_url(&self) -> &String;
+
+    fn get_web_client(&self) -> &Client<HttpConnector>;
+}
