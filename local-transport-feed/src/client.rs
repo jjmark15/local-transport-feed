@@ -19,7 +19,10 @@ impl<T: WebClient + Debug> FeedClient<T> {
         &self,
         station: Station,
     ) -> Result<Vec<Departure>, reqwest::Error> {
-        let results = self.transport_api.get_live_arrivals(station).await?;
-        Ok(vec![])
+        let results = self.transport_api.get_live_arrivals(station).await;
+        if let Err(e) = &results {
+            error!("an error occurred when getting live arrivals: {:?}", e)
+        }
+        results
     }
 }

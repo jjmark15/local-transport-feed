@@ -38,7 +38,6 @@ impl<T: WebClient> TransportApi<T> {
             .await?
             .json::<TransportApiLiveInfoResponse>()
             .await?;
-        println!("{:?}", resp);
 
         //        Ok(resp.departures.into::<Vec<Departure>>())
         Ok(vec![])

@@ -8,6 +8,8 @@ use local_transport_feed::services::web::ExternalWebApiCredential;
 
 #[tokio::test]
 async fn given_transport_api_gets_live_train_departures() {
+    pretty_env_logger::init();
+
     // Given mocked response
     let _m = mockito::mock("GET", "/transport/HRN")
         .with_status(200)
