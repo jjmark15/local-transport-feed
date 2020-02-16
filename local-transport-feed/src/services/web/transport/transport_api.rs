@@ -46,8 +46,7 @@ impl TransportApi {
             .json::<TransportApiLiveInfoResponse>()
             .await?;
 
-        //        Ok(resp.departures.into::<Vec<Departure>>())
-        Ok(vec![])
+        Ok(resp.departures.into())
     }
 }
 
@@ -75,8 +74,23 @@ struct TransportApiDeparture {
     destination_name: String,
 }
 
-impl Into<Departure> for TransportApiDeparture {
+impl Into<Departure> for &TransportApiDeparture {
     fn into(self) -> Departure {
-        unimplemented!()
+        let origin = Station::new(self.origin_name.clone());
+        let destination = Station::new(self.destination_name.clone());
+        let aimed_departure_time = self.aimed_departure_time.clone();
+        let estimated_departure_time = self.expected_departure_time.clone();
+        Departure::new(
+            origin,
+            destination,
+            aimed_departure_time,
+            estimated_departure_time,
+        )
+    }
+}
+
+impl Into<Vec<Departure>> for TransportApiLiveResponseDepartures {
+    fn into(self) -> Vec<Departure> {
+        self.all.iter().map(|t| t.into()).collect()
     }
 }
