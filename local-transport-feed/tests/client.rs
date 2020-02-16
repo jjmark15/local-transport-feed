@@ -11,7 +11,7 @@ async fn given_transport_api_gets_live_train_departures() {
     pretty_env_logger::init();
 
     // Given mocked response
-    let _m = mockito::mock("GET", "/transport/HRN")
+    let _m = mockito::mock("GET", "/uk/train/station/HRN/live.json")
         .match_query(Matcher::UrlEncoded("app_key".into(), "api_key".into()))
         .match_query(Matcher::UrlEncoded("app_id".into(), "app_id".into()))
         .with_status(200)
@@ -33,8 +33,12 @@ async fn given_transport_api_gets_live_train_departures() {
     let station: Station = Station::new("HRN".to_string());
     let result = client.get_transport_feed(station).await;
 
-    assert_that(&result.is_ok()).is_equal_to(true);
+    asserting("response does not error")
+        .that(&result.is_ok())
+        .is_equal_to(true);
 
     let departures = result.unwrap();
-    assert_that(&departures.len()).is_equal_to(3);
+    asserting("there are three departures returned")
+        .that(&departures.len())
+        .is_equal_to(3);
 }

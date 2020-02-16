@@ -27,7 +27,7 @@ impl TransportApi {
 
     pub async fn get_live_arrivals(&self, station: Station) -> Result<Vec<Departure>, Error> {
         let request_url_string = format!(
-            "{base_url}/transport/{station_code}",
+            "{base_url}/uk/train/station/{station_code}/live.json",
             station_code = station.station_code,
             base_url = self.api_base_url
         );
