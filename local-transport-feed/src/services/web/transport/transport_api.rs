@@ -3,22 +3,21 @@ use serde::{Deserialize, Serialize};
 
 use crate::domain::departure::Departure;
 use crate::domain::station::Station;
-use crate::services::web::web_client::WebClient;
 use crate::services::web::{ExternalWebApi, ExternalWebApiCredential};
 
 #[derive(Debug)]
-pub struct TransportApi<T: WebClient> {
+pub struct TransportApi {
     credentials: ExternalWebApiCredential,
     api_base_url: String,
-    web_client: T,
+    web_client: reqwest::Client,
 }
 
-impl<T: WebClient> TransportApi<T> {
+impl TransportApi {
     pub fn new(
         credentials: ExternalWebApiCredential,
         api_base_url: String,
-        getter_client: T,
-    ) -> TransportApi<T> {
+        getter_client: reqwest::Client,
+    ) -> TransportApi {
         TransportApi {
             credentials,
             api_base_url,
@@ -27,14 +26,22 @@ impl<T: WebClient> TransportApi<T> {
     }
 
     pub async fn get_live_arrivals(&self, station: Station) -> Result<Vec<Departure>, Error> {
-        let request_url = format!(
+        let request_url_string = format!(
             "{base_url}/transport/{station_code}",
             station_code = station.station_code,
             base_url = self.api_base_url
         );
+        let mut request_url: reqwest::Url = reqwest::Url::parse(&request_url_string).unwrap();
+        request_url
+            .query_pairs_mut()
+            .append_pair("app_key", &self.credentials.api_key);
+        request_url
+            .query_pairs_mut()
+            .append_pair("app_id", &self.credentials.app_id);
         let resp: TransportApiLiveInfoResponse = self
             .web_client
-            .get(&request_url)
+            .get(request_url)
+            .send()
             .await?
             .json::<TransportApiLiveInfoResponse>()
             .await?;
@@ -44,7 +51,7 @@ impl<T: WebClient> TransportApi<T> {
     }
 }
 
-impl<T: WebClient> ExternalWebApi for TransportApi<T> {
+impl ExternalWebApi for TransportApi {
     fn get_api_base_url(&self) -> &String {
         &self.api_base_url
     }

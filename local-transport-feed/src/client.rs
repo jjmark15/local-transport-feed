@@ -3,15 +3,14 @@ use serde::export::fmt::Debug;
 use crate::domain::departure::Departure;
 use crate::domain::station::Station;
 use crate::services::web::transport::transport_api::TransportApi;
-use crate::services::web::web_client::WebClient;
 
 #[derive(Debug)]
-pub struct FeedClient<T: WebClient> {
-    transport_api: TransportApi<T>,
+pub struct FeedClient {
+    transport_api: TransportApi,
 }
 
-impl<T: WebClient + Debug> FeedClient<T> {
-    pub fn new(transport_api: TransportApi<T>) -> FeedClient<T> {
+impl FeedClient {
+    pub fn new(transport_api: TransportApi) -> FeedClient {
         FeedClient { transport_api }
     }
 

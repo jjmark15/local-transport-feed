@@ -1,10 +1,10 @@
 use crate::domain::station::Station;
 
 pub struct Departure {
-    origin: Station,
-    destination: Station,
-    aimed_departure_time: String,
-    estimated_departure_time: String,
+    pub origin: Station,
+    pub destination: Station,
+    pub aimed_departure_time: String,
+    pub estimated_departure_time: String,
 }
 
 impl Departure {

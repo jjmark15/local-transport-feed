@@ -1,5 +1,4 @@
 pub mod transport;
-pub mod web_client;
 
 #[derive(Debug, Default)]
 pub struct ExternalWebApiCredential {
