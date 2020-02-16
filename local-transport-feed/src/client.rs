@@ -1,19 +1,25 @@
-#[derive(Default, Debug)]
-pub struct FeedClient {}
+use serde::export::fmt::Debug;
 
-type Result<T> = std::result::Result<T, Box<dyn std::error::Error + Send + Sync>>;
+use crate::domain::departure::Departure;
+use crate::domain::station::Station;
+use crate::services::web::transport::transport_api::TransportApi;
+use crate::services::web::web_client::WebClient;
 
-impl FeedClient {
-    pub fn new() -> FeedClient {
-        FeedClient {}
+#[derive(Debug)]
+pub struct FeedClient<T: WebClient> {
+    transport_api: TransportApi<T>,
+}
+
+impl<T: WebClient + Debug> FeedClient<T> {
+    pub fn new(transport_api: TransportApi<T>) -> FeedClient<T> {
+        FeedClient { transport_api }
     }
 
-    pub fn run(&self) -> Result<()> {
-        info!("{}", self.log_startup());
-        Ok(())
-    }
-
-    fn log_startup(&self) -> String {
-        format!("FeedClient starting with config: {:?}", self)
+    pub async fn get_transport_feed(
+        &self,
+        station: Station,
+    ) -> Result<Vec<Departure>, reqwest::Error> {
+        let results = self.transport_api.get_live_arrivals(station).await?;
+        Ok(vec![])
     }
 }

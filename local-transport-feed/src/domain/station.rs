@@ -1,6 +1,6 @@
 #[derive(Debug)]
 pub struct Station {
-    station_code: String,
+    pub station_code: String,
 }
 
 impl Station {

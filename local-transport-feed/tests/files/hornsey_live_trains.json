@@ -1,0 +1,71 @@
+{
+    "date": "2020-02-16",
+    "time_of_day": "17:20",
+    "request_time": "2020-02-16T17:20:07+00:00",
+    "station_name": "Hornsey",
+    "station_code": "HRN",
+    "departures": {
+        "all": [
+            {
+                "mode": "train",
+                "service": "21723000",
+                "train_uid": "C02988",
+                "platform": null,
+                "operator": "GN",
+                "operator_name": "Great Northern",
+                "aimed_departure_time": "18:31",
+                "aimed_arrival_time": "18:31",
+                "aimed_pass_time": null,
+                "origin_name": "Welwyn Garden City",
+                "destination_name": "Moorgate (Great Northern)",
+                "source": "Network Rail",
+                "category": "OO",
+                "status": "ON TIME",
+                "expected_arrival_time": "18:31",
+                "expected_departure_time": "18:31",
+                "best_arrival_estimate_mins": 70,
+                "best_departure_estimate_mins": 70
+            },
+            {
+                "mode": "train",
+                "service": "21724000",
+                "train_uid": "C02679",
+                "platform": null,
+                "operator": "GN",
+                "operator_name": "Great Northern",
+                "aimed_departure_time": "18:31",
+                "aimed_arrival_time": "18:31",
+                "aimed_pass_time": null,
+                "origin_name": "Moorgate (Great Northern)",
+                "destination_name": "Stevenage",
+                "source": "Network Rail",
+                "category": "OO",
+                "status": "ON TIME",
+                "expected_arrival_time": "18:31",
+                "expected_departure_time": "18:31",
+                "best_arrival_estimate_mins": 70,
+                "best_departure_estimate_mins": 70
+            },
+            {
+                "mode": "train",
+                "service": "21724000",
+                "train_uid": "C02838",
+                "platform": null,
+                "operator": "GN",
+                "operator_name": "Great Northern",
+                "aimed_departure_time": "18:46",
+                "aimed_arrival_time": "18:46",
+                "aimed_pass_time": null,
+                "origin_name": "Stevenage",
+                "destination_name": "Moorgate (Great Northern)",
+                "source": "Network Rail",
+                "category": "OO",
+                "status": "ON TIME",
+                "expected_arrival_time": "18:46",
+                "expected_departure_time": "18:46",
+                "best_arrival_estimate_mins": 85,
+                "best_departure_estimate_mins": 85
+            }
+        ]
+    }
+}
