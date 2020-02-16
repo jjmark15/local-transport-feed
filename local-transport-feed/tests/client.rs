@@ -2,7 +2,6 @@ use mockito::Matcher;
 use spectral::prelude::*;
 
 use local_transport_feed::client::FeedClient;
-use local_transport_feed::domain::station::Station;
 use local_transport_feed::services::web::transport::transport_api::TransportApi;
 use local_transport_feed::services::web::ExternalWebApiCredential;
 
@@ -30,8 +29,8 @@ async fn given_transport_api_gets_live_train_departures() {
     let client = FeedClient::new(api);
 
     // When we get the transport feed from the transport api
-    let station: Station = Station::new("HRN".to_string());
-    let result = client.get_transport_feed(station).await;
+    let station_code = "HRN".to_string();
+    let result = client.get_transport_feed(station_code).await;
 
     asserting("response does not error")
         .that(&result.is_ok())

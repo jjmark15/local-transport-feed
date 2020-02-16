@@ -2,7 +2,6 @@ use reqwest::Error;
 use serde::{Deserialize, Serialize};
 
 use crate::domain::departure::Departure;
-use crate::domain::station::Station;
 use crate::services::web::{ExternalWebApi, ExternalWebApiCredential};
 
 #[derive(Debug)]
@@ -25,10 +24,10 @@ impl TransportApi {
         }
     }
 
-    pub async fn get_live_arrivals(&self, station: Station) -> Result<Vec<Departure>, Error> {
+    pub async fn get_live_arrivals(&self, station_code: String) -> Result<Vec<Departure>, Error> {
         let request_url_string = format!(
             "{base_url}/uk/train/station/{station_code}/live.json",
-            station_code = station.station_code,
+            station_code = station_code,
             base_url = self.api_base_url
         );
         let mut request_url: reqwest::Url = reqwest::Url::parse(&request_url_string).unwrap();
@@ -76,8 +75,8 @@ struct TransportApiDeparture {
 
 impl Into<Departure> for &TransportApiDeparture {
     fn into(self) -> Departure {
-        let origin = Station::new(self.origin_name.clone());
-        let destination = Station::new(self.destination_name.clone());
+        let origin = self.origin_name.to_owned();
+        let destination = self.destination_name.to_owned();
         let aimed_departure_time = self.aimed_departure_time.clone();
         let estimated_departure_time = self.expected_departure_time.clone();
         Departure::new(

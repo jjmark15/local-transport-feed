@@ -1,7 +1,6 @@
 use serde::export::fmt::Debug;
 
 use crate::domain::departure::Departure;
-use crate::domain::station::Station;
 use crate::services::web::transport::transport_api::TransportApi;
 
 #[derive(Debug)]
@@ -16,9 +15,9 @@ impl FeedClient {
 
     pub async fn get_transport_feed(
         &self,
-        station: Station,
+        station_code: String,
     ) -> Result<Vec<Departure>, reqwest::Error> {
-        let results = self.transport_api.get_live_arrivals(station).await;
+        let results = self.transport_api.get_live_arrivals(station_code).await;
         if let Err(e) = &results {
             error!("an error occurred when getting live arrivals: {:?}", e)
         }
