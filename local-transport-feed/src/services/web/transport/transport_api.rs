@@ -51,8 +51,13 @@ impl<T: WebClient> ExternalWebApi for TransportApi<T> {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
+struct TransportApiLiveResponseDepartures {
+    all: Vec<TransportApiDeparture>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
 struct TransportApiLiveInfoResponse {
-    departures: Vec<TransportApiDeparture>,
+    departures: TransportApiLiveResponseDepartures,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
