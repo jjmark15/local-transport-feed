@@ -1,3 +1,4 @@
+#[derive(Eq, PartialEq, Debug)]
 pub struct Departure {
     pub origin_name: String,
     pub destination_name: String,

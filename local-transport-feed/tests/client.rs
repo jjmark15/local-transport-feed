@@ -43,23 +43,20 @@ async fn given_transport_api_gets_live_train_departures() {
         .that(&departures.len())
         .is_equal_to(3);
 
+    let expected_departures: Vec<Departure> = vec![Departure::new(
+        "Welwyn Garden City".to_string(),
+        "Moorgate (Great Northern)".to_string(),
+        "18:31".to_string(),
+        "18:31".to_string(),
+    )];
+
     let departure_1: &Departure = departures.get(0).unwrap();
-    asserting("first departure has correct origin name")
-        .that(&departure_1.origin_name)
-        .is_equal_to("Welwyn Garden City".to_string());
+    asserting("first departure has expected property values")
+        .that(&departure_1)
+        .is_equal_to(expected_departures.get(0).unwrap());
 
     let departure_2: &Departure = departures.get(1).unwrap();
-    asserting("second departure has correct destination name")
-        .that(&departure_2.destination_name)
-        .is_equal_to("Stevenage".to_string());
-
-    let departure_3: &Departure = departures.get(2).unwrap();
-    asserting("third departure has correct aimed departure time")
-        .that(&departure_3.aimed_departure_time)
-        .is_equal_to("18:46".to_string());
-
-    let departure_3: &Departure = departures.get(2).unwrap();
-    asserting("third departure has correct expected departure time")
-        .that(&departure_3.estimated_departure_time)
-        .is_equal_to("18:46".to_string());
+    asserting("first and second departures are not equal")
+        .that(&departure_1)
+        .is_not_equal_to(&departure_2);
 }
