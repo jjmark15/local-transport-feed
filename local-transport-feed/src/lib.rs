@@ -1,3 +1,7 @@
+#![deny(missing_docs)]
+
+//! The `local-transport-feed` crate provides a simple wrapper around [Transport API](https://transportapi.com).
+
 #[macro_use]
 extern crate log;
 
