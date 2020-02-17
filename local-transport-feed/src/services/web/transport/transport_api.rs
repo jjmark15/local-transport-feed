@@ -40,6 +40,7 @@ impl TransportApi {
         let resp: TransportApiLiveInfoResponse = self
             .web_client
             .get(request_url)
+            .header(reqwest::header::ACCEPT, "application/json")
             .send()
             .await?
             .json::<TransportApiLiveInfoResponse>()

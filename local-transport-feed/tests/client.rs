@@ -12,6 +12,7 @@ async fn given_transport_api_gets_live_train_departures() {
 
     // Given mocked response
     let _m = mockito::mock("GET", "/uk/train/station/HRN/live.json")
+        .match_header("Accept", "application/json")
         .match_query(Matcher::UrlEncoded("app_key".into(), "api_key".into()))
         .match_query(Matcher::UrlEncoded("app_id".into(), "app_id".into()))
         .with_status(200)
