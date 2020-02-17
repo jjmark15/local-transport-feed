@@ -2,6 +2,7 @@ use mockito::Matcher;
 use spectral::prelude::*;
 
 use local_transport_feed::client::FeedClient;
+use local_transport_feed::domain::departure::Departure;
 use local_transport_feed::services::web::transport::transport_api::TransportApi;
 use local_transport_feed::services::web::ExternalWebApiCredential;
 
@@ -40,4 +41,24 @@ async fn given_transport_api_gets_live_train_departures() {
     asserting("there are three departures returned")
         .that(&departures.len())
         .is_equal_to(3);
+
+    let departure_1: &Departure = departures.get(0).unwrap();
+    asserting("first departure has correct origin name")
+        .that(&departure_1.origin_name)
+        .is_equal_to("Welwyn Garden City".to_string());
+
+    let departure_2: &Departure = departures.get(1).unwrap();
+    asserting("second departure has correct destination name")
+        .that(&departure_2.destination_name)
+        .is_equal_to("Stevenage".to_string());
+
+    let departure_3: &Departure = departures.get(2).unwrap();
+    asserting("third departure has correct aimed departure time")
+        .that(&departure_3.aimed_departure_time)
+        .is_equal_to("18:46".to_string());
+
+    let departure_3: &Departure = departures.get(2).unwrap();
+    asserting("third departure has correct expected departure time")
+        .that(&departure_3.estimated_departure_time)
+        .is_equal_to("18:46".to_string());
 }
