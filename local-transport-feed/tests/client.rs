@@ -7,7 +7,7 @@ use local_transport_feed::services::web::transport::transport_api::TransportApi;
 use local_transport_feed::services::web::ExternalWebApiCredential;
 
 #[tokio::test]
-async fn given_transport_api_gets_live_train_departures() {
+async fn transport_api_client_gets_live_train_departures() {
     pretty_env_logger::init();
 
     // Given mocked response

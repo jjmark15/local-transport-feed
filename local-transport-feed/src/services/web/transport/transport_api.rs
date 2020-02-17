@@ -30,7 +30,8 @@ impl TransportApi {
             station_code = station_code,
             base_url = self.api_base_url
         );
-        let mut request_url: reqwest::Url = reqwest::Url::parse(&request_url_string).unwrap();
+        let mut request_url: reqwest::Url =
+            reqwest::Url::parse(&request_url_string).expect("url string is a valid url");
         request_url
             .query_pairs_mut()
             .append_pair("app_key", &self.credentials.api_key);
